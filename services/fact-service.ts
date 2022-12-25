@@ -1,23 +1,14 @@
-import {
-  ActionCreatorWithPayload,
-  AnyAction,
-  Dispatch,
-} from "@reduxjs/toolkit";
+import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 import FactRepository, { Fact } from "../respositories/fact-repository";
+import { FactsActions } from "../store/fact-reducer";
 
 export default class FactsService {
-  private dispatch: Dispatch<AnyAction>;
-  private factActions: {
-    saveFact: ActionCreatorWithPayload<Fact, "fact/saveFact">;
-  };
-  private factRepository: FactRepository;
   constructor(
-    factRepository: FactRepository,
-    dispatch: Dispatch<AnyAction>,
-    factActions: { saveFact: ActionCreatorWithPayload<Fact, "fact/saveFact"> }
+    private factRepository: FactRepository,
+    private store: ToolkitStore,
+    private factActions: FactsActions
   ) {
     this.factRepository = factRepository;
-    this.dispatch = dispatch;
     this.factActions = factActions;
   }
 
@@ -30,7 +21,7 @@ export default class FactsService {
     }
 
     // save to store
-    this.dispatch(this.factActions.saveFact(res.data));
+    this.store.dispatch(this.factActions.saveFact(res.data));
     return res;
   }
 

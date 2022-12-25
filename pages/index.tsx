@@ -1,36 +1,6 @@
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react'
-import { Fact } from '../respositories/fact-repository'
-
-import { useDispatch } from 'react-redux'
-
-import FactRepository from '../respositories/fact-repository'
-import { AxiosClient } from '../utils/clients'
-import axios from "axios";
-import FactsService from '../services/fact-service';
-import { saveFact } from '../store/fact'
-import FactComponet from '../components/facts'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export let DI = {} as {
-  factService:FactsService
-};
+import Head from "next/head";
 
 export default function Index() {
-
-  const dispatch = useDispatch()
-  const client = new AxiosClient(axios);
-  const factRepository = new FactRepository(client);
-  const factService = new FactsService(factRepository, dispatch, {saveFact})
-
-  
-  DI = {
-    factService,
-  }
-
   return (
     <>
       <Head>
@@ -39,10 +9,11 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-
-      <FactComponet />
+      <main className="page d-flex">
+        <div className="flex-grow-1 mt-5">
+          <h1 className="text-primary text-center">Sample Project Setup</h1>
+        </div>
       </main>
     </>
-  )
+  );
 }

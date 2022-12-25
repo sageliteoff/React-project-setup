@@ -8,21 +8,19 @@ export type Fact = {
 };
 
 export default class FactRepository {
-  client: AxiosClient;
-  constructor(client: AxiosClient) {
-    this.client = client;
-  }
+  private BASE_URL = "http://numbersapi.com";
+  constructor(private client: AxiosClient) {}
 
   async getRandomFact(): Promise<{
     data: Fact;
   }> {
-    return this.client.get(`random/trivia?json`);
+    return this.client.get(`${this.BASE_URL}/random/trivia?json`);
   }
 
   async getFact(id: number): Promise<{
     data: Fact;
   }> {
-    return this.client.get(`${id}?json`);
+    return this.client.get(`${this.BASE_URL}/${id}?json`);
   }
 
   async saveFact(fact: Fact) {

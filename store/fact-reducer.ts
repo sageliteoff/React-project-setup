@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from ".";
 import { Fact } from "../respositories/fact-repository";
 
 // Define a type for the slice state
@@ -24,6 +23,6 @@ export const factSlice = createSlice({
   },
 });
 
-export const { saveFact } = factSlice.actions;
-
+export const factActions = factSlice.actions;
+export type FactsActions = typeof factSlice.actions;
 export default factSlice.reducer;
